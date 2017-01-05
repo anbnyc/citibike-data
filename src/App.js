@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      bikesOrDocks: "bikes"
+      unit: "bikes"
     };
   }
   componentWillMount(){
@@ -18,25 +18,27 @@ class App extends Component {
         this.setState({loadError: true})
       }
       this.setState({
-        data: JSON.parse(data.response).data.stations
+        data: JSON.parse(data.response).data.stations,
+        unit: this.state.unit
       });
-      // console.log(this.state);
     })
   }
   render() {
-    // console.log(this.state);
     return (
       <div className="App" >
         <div style={{ display: "flex", flexDirection: "row" }}>
           <StationMaster data={this.state.data ? this.state.data : []} />
           <Switch
-            bikesOrDocks={this.state.bikesOrDocks}
-            update={(d) => this.setState({bikesOrDocks: d})}
+            unit={this.state.unit}
+            update={(d) => this.setState({unit: d})}
           />
           <div id="findAStation">Find a Station</div>
         </div>
         <div>
-          <Station data={this.state.data ? this.state.data[0] : []}/>
+          <Station 
+            data={this.state.data ? this.state.data[0] : {}}
+            unit={this.state.unit}
+            />
         </div>
       </div>
     );

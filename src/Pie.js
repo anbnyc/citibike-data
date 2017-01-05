@@ -12,7 +12,6 @@ class Pie extends Component {
   render() {
     const {height, width} = this.props;
     const id = this.props.parent.replace("#","");
-    console.log(id,this.props.data);
     return <svg id={id} height={height} width={width} />
   }
 }

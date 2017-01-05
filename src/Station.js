@@ -9,11 +9,10 @@ class Station extends Component {
     this.state = {};
   }
   render() {
-    const bikesOrDocks = this.props.unit ? this.props.unit : this.state.bikesOrDocks;
     const data = this.props.data;
     return <div>
         {[
-          <h2>{bikesOrDocks}</h2>,
+          <h2>{this.props.unit}</h2>,
           <Pie 
             r={.5* this.props.height || 100}
             height={this.props.height || 200}
@@ -21,11 +20,11 @@ class Station extends Component {
             data={[
               {
                 status: "available",
-                value: data["num_"+bikesOrDocks+"_available"]
+                value: data["num_"+this.props.unit+"_available"]
               },
               {
                 status: "disabled",
-                value: data["num_"+bikesOrDocks+"_disabled"]
+                value: data["num_"+this.props.unit+"_disabled"]
               }
             ]}
             parent={"#svg"+data.station_id}
