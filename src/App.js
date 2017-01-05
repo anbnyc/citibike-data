@@ -4,6 +4,7 @@ import './App.css';
 import StationMaster from './StationMaster.js';
 import Station from './Station.js';
 import Switch from './Switch.js';
+import Finder from './Finder.js';
 
 class App extends Component {
   constructor(props){
@@ -18,27 +19,36 @@ class App extends Component {
         this.setState({loadError: true})
       }
       this.setState({
-        data: JSON.parse(data.response).data.stations,
-        unit: this.state.unit
+        data: JSON.parse(data.response).data.stations
       });
     })
   }
   render() {
+    const data = this.state.data ? this.state.data : [];
     return (
       <div className="App" >
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <StationMaster data={this.state.data ? this.state.data : []} />
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+          <StationMaster 
+            style={{ display: "flex", flexGrow: "1"}}
+            data={this.state.data ? this.state.data : []} />
           <Switch
+            style={{ display: "flex", flexGrow: "1"}}
             unit={this.state.unit}
             update={(d) => this.setState({unit: d})}
           />
-          <div id="findAStation">Find a Station</div>
+          <Finder
+            style={{ display: "flex", flexGrow: "1"}}
+          />
         </div>
-        <div>
-          <Station 
-            data={this.state.data ? this.state.data[0] : {}}
-            unit={this.state.unit}
+        <div style={{display: "flex", flexWrap: "wrap"}}>
+          {data.map(d => 
+            <Station 
+              data={d ? d : {}}
+              height={100}
+              key={d.station_id}
+              unit={this.state.unit}
             />
+          )}
         </div>
       </div>
     );

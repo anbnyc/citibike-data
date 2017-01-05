@@ -19,6 +19,7 @@ class Pie extends Component {
 function initialPie({r,data,parent,width,height}){
   const pie = d3.pie().value((d)=>d.value)(data);
   const arc = d3.arc().outerRadius(r - 5).innerRadius(0);
+  const labelArc = d3.arc().outerRadius(.6 * r).innerRadius(.6 * r)
   const color = d3.scaleOrdinal()
     .domain(["available","disabled"])
     .range(["#008000","#FF0000"]);
@@ -33,11 +34,15 @@ function initialPie({r,data,parent,width,height}){
   g.append("path")
     .attr("d",arc)
     .style("fill",d=>color(d.data.status));
+  g.append("text")
+    .attr("transform",d=>"translate("+labelArc.centroid(d)+")")
+    .text(d=>d.data.value === 0 ? "" : d.data.value);
 }
 
 function updatePie({r,data,parent}){
   const pie = d3.pie().value((d)=>d.value)(data);
   const arc = d3.arc().outerRadius(r - 5).innerRadius(0);
+  const labelArc = d3.arc().outerRadius(.6 * r).innerRadius(.6 * r)
   const svg = d3.select("body")
     .select(parent)
     .select("g.arcHolder");
@@ -45,6 +50,9 @@ function updatePie({r,data,parent}){
     .data(pie);
   g.select("path")
     .attr("d",arc);
+  g.select("text")
+    .attr("transform",d=>"translate("+labelArc.centroid(d)+")")
+    .text(d=>d.data.value === 0 ? "" : d.data.value);
 }
 
 export default Pie;

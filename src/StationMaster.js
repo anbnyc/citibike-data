@@ -15,9 +15,9 @@ class StationMaster extends Component {
             <div style={{ display: "flex", flexDirection: "row" }}>
               <Station 
                 unit="bikes"
-                height={100}
+                height={200}
                 data={{
-                  station_id: 'all-bikes',
+                  station_id: 'all_bikes',
                   num_bikes_available: _.reduce(data,(t,v)=>t+v.num_bikes_available,0),
                   num_bikes_disabled: _.reduce(data,(t,v)=>t+v.num_bikes_disabled,0)
                 }}/>
@@ -25,7 +25,7 @@ class StationMaster extends Component {
                 unit="docks"
                 height={100}
                 data={{
-                  station_id: 'all-docks',
+                  station_id: 'all_docks',
                   num_docks_available: _.reduce(data,(t,v)=>t+v.num_docks_available,0),
                   num_docks_disabled: _.reduce(data,(t,v)=>t+v.num_docks_disabled,0)
                 }}/>
