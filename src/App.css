@@ -1,0 +1,51 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.switch__track {
+  border-radius: 10px;
+  box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
+  display: inline-block;
+  margin: 0 20px;
+  position: relative;
+  width: 60px;
+  height: 20px;
+  background: #c0c0c0;
+}
+
+.switch__thumb {
+  background: #d6d6d5;
+  border-radius: 10px;
+  position: relative;
+  left: 1px;
+  top: 1px;
+  width: 18px;
+  height: 18px;
+  transition: left .5s;
+}
+
+.switch__thumb.docks {
+  left: 41px;
+}
