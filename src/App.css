@@ -49,3 +49,7 @@
 .switch__thumb.docks {
   left: 41px;
 }
+
+.station-border {
+  border: 1px solid #ccc;
+}

@@ -17,14 +17,16 @@ class StationMaster extends Component {
                 unit="bikes"
                 height={200}
                 data={{
+                  name: "All Bikes",
                   station_id: 'all_bikes',
                   num_bikes_available: _.reduce(data,(t,v)=>t+v.num_bikes_available,0),
                   num_bikes_disabled: _.reduce(data,(t,v)=>t+v.num_bikes_disabled,0)
                 }}/>
               <Station 
                 unit="docks"
-                height={100}
+                height={200}
                 data={{
+                  name: "All Docks",
                   station_id: 'all_docks',
                   num_docks_available: _.reduce(data,(t,v)=>t+v.num_docks_available,0),
                   num_docks_disabled: _.reduce(data,(t,v)=>t+v.num_docks_disabled,0)

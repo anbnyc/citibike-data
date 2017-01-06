@@ -10,10 +10,9 @@ class Station extends Component {
   }
   render() {
     const data = this.props.data;
-    const stationId = data.station_id;
-    return <div>
+    return <div className={"station-border"}>
         {[
-          <h2 key={"station-header"}>{stationId}</h2>,
+          <h6 key={"station-header"}>{data.name}</h6>,
           <Pie
             key={"station-pie"}
             r={.5* this.props.height || 100}
@@ -29,7 +28,7 @@ class Station extends Component {
                 value: data["num_"+this.props.unit+"_disabled"]
               }
             ]}
-            parent={"#svg"+stationId}
+            parent={"#svg"+data.station_id}
           />
         ]}
       </div>
