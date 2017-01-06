@@ -22,7 +22,7 @@ class Finder extends Component {
       <div>Station Name:
         <input
           type="text"
-          placeholder="Station name..."
+          placeholder="Type a name..."
           value={this.props.filterText}
           ref={(input) => this.filterTextInput = input}
           onChange={this.handleChange}

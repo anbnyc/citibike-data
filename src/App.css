@@ -45,6 +45,15 @@
   margin: 2px;
 }
 
+.pie-label{
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+.arc > path{
+  opacity: 0.8;
+}
+
 h6{
   margin: 8px;
 }

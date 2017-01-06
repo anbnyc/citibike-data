@@ -35,6 +35,7 @@ function initialPie({r,data,parent,width,height}){
     .attr("d",arc)
     .style("fill",d=>color(d.data.status));
   g.append("text")
+    .attr("class","pie-label")
     .attr("transform",d=>"translate("+labelArc.centroid(d)+")")
     .text(d=>d.data.value === 0 ? "" : d.data.value);
 }

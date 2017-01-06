@@ -11,7 +11,7 @@ class StationMaster extends Component {
   render() {
     const data = this.props.data;
     return <div>
-            <h2>All Stations</h2>
+            <h2>All Stations ({data.length})</h2>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <Station 
                 unit="bikes"

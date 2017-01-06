@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       unit: "bikes",
+      myLoc: {},
       filterText: '',
       hasBikes: false,
       hasDocks: false,
@@ -45,10 +46,26 @@ class App extends Component {
             JSON.parse(response[1].response).data.stations)
         });
       });
+
+    navigator.geolocation.getCurrentPosition(p=>{
+      this.setState({
+        myLoc: {
+          lat: p.coords.latitude,
+          lon: p.coords.longitude
+        }
+      });
+    });
   }
 
   render() {
-    const data = this.state.data ? this.state.data : [];
+    const maxDistance = parseFloat(this.state.maxDistance);
+    let data = this.state.data ? this.state.data : [];
+    data = data.filter(d=>{
+      return (d.name.indexOf(this.state.filterText) !== -1)
+        && (this.state.hasBikes ? d.num_bikes_available > 0 : true)
+        && (this.state.hasDocks ? d.num_docks_available > 0 : true)
+        && (this.state.myLoc ? distanceCalc({ lat: d.lat, lon: d.lon },this.state.myLoc,maxDistance) : true);
+    });
     return (
       <div className="App" >
         <div className="App-header" style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
@@ -81,6 +98,22 @@ class App extends Component {
       </div>
     );
   }
+}
+
+function distanceCalc(loc1,loc2,maxDistance){
+  if(maxDistance === 0){
+    return true;
+  }
+  let radlat1 = Math.PI * loc1.lat/180;
+  let radlat2 = Math.PI * loc2.lat/180;
+  let radlon1 = Math.PI * loc1.lon/180;
+  let radlon2 = Math.PI * loc2.lon/180;
+  let dlat = radlat2 - radlat1
+  let dlon = radlon2 - radlon1
+  var dist = 2 * 6372.8 * Math.asin(Math.sqrt(
+    Math.pow(Math.sin(dlat/2),2) + Math.cos(radlat1)*Math.cos(radlat2)*Math.pow(Math.sin(dlon/2),2)
+  ));
+  return (dist*0.621371 <= maxDistance);
 }
 
 export default App;
