@@ -17,7 +17,19 @@ class App extends Component {
       hasDocks: false,
       maxDistance: 0
     };
+
+    this.handleUserInput = this.handleUserInput.bind(this);
   }
+
+  handleUserInput(filterText,hasBikes,hasDocks,maxDistance){
+    this.setState({
+      filterText: filterText,
+      hasBikes: hasBikes,
+      hasDocks: hasDocks,
+      maxDistance: maxDistance
+    });
+  }
+
   componentWillMount(){
     d3.queue()
       .defer(d3.request, 'https://gbfs.citibikenyc.com/gbfs/en/station_status.json')
@@ -39,20 +51,33 @@ class App extends Component {
     const data = this.state.data ? this.state.data : [];
     return (
       <div className="App" >
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+        <div className="App-header" style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
           <StationMaster 
             style={{ display: "flex", flexGrow: "1"}}
             data={data} />
-          <Switch
-            style={{ display: "flex", flexGrow: "1"}}
-            unit={this.state.unit}
-            update={(d) => this.setState({unit: d})}
-          />
-          <Finder
-            style={{ display: "flex", flexGrow: "1"}}
-          />
+          <div style={{ display: "flex", flexDirection: "column"}}>
+            <Finder style={{ display: "flex", flexGrow: "1"}}
+              onUserInput={this.handleUserInput}
+              filterText={this.state.filterText}
+              hasBikes={this.state.hasBikes}
+              hasDocks={this.state.hasDocks}
+              maxDistance={this.state.maxDistance}
+            />
+            <Switch
+              style={{ display: "flex", flexGrow: "1"}}
+              unit={this.state.unit}
+              update={(d) => this.setState({unit: d})}
+            />
+          </div>
         </div>
-        <Stations data={data} unit={this.state.unit}/>
+        <Stations
+          data={data} 
+          unit={this.state.unit}
+          filterText={this.state.filterText}
+          hasBikes={this.state.hasBikes}
+          hasDocks={this.state.hasDocks}
+          maxDistance={this.state.maxDistance}
+          />
       </div>
     );
   }
