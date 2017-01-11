@@ -10,27 +10,20 @@ class StationMaster extends Component {
   }
   render() {
     const data = this.props.data;
+    const datum = {
+      name: "All "+this.props.unit,
+      station_id: 'all',
+      capacity: _.reduce(data,(t,v)=>t+v.capacity,0)
+    };
+    datum["num_"+this.props.unit+"_available"] = _.reduce(data,(t,v)=>t+v["num_"+this.props.unit+"_available"],0);
+    datum["num_"+this.props.unit+"_disabled"] = _.reduce(data,(t,v)=>t+v["num_"+this.props.unit+"_disabled"],0);
     return <div>
             <h2>All Stations ({data.length})</h2>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <Station 
-                unit="bikes"
+                color={this.props.color}
                 height={200}
-                data={{
-                  name: "All Bikes",
-                  station_id: 'all_bikes',
-                  num_bikes_available: _.reduce(data,(t,v)=>t+v.num_bikes_available,0),
-                  num_bikes_disabled: _.reduce(data,(t,v)=>t+v.num_bikes_disabled,0)
-                }}/>
-              <Station 
-                unit="docks"
-                height={200}
-                data={{
-                  name: "All Docks",
-                  station_id: 'all_docks',
-                  num_docks_available: _.reduce(data,(t,v)=>t+v.num_docks_available,0),
-                  num_docks_disabled: _.reduce(data,(t,v)=>t+v.num_docks_disabled,0)
-                }}/>
+                data={datum}/>
             </div>
           </div>
   }

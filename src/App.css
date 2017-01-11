@@ -57,3 +57,13 @@
 h6{
   margin: 8px;
 }
+
+.capacity-label{
+  font-size: 10px;
+  margin: 2px;
+}
+
+.legend text{
+  fill: white;
+  font-size: 12px;
+}

@@ -44,7 +44,7 @@ class Finder extends Component {
           onChange={this.handleChange}
           />
       </div>
-      <div>Location: Less than or equal to 
+      <div>Location: Less than or equal to
         <input
           type="number"
           value={this.props.maxDistance}

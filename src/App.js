@@ -5,6 +5,7 @@ import StationMaster from './StationMaster.js';
 import Stations from './Stations.js';
 import Switch from './Switch.js';
 import Finder from './Finder.js';
+import Legend from './Legend.js';
 import * as _ from 'lodash';
 
 class App extends Component {
@@ -47,7 +48,7 @@ class App extends Component {
         });
       });
 
-    navigator.geolocation.getCurrentPosition(p=>{
+    window.navigator.geolocation.getCurrentPosition(p=>{
       this.setState({
         myLoc: {
           lat: p.coords.latitude,
@@ -60,6 +61,10 @@ class App extends Component {
   render() {
     const maxDistance = parseFloat(this.state.maxDistance);
     let data = this.state.data ? this.state.data : [];
+    const colors = {
+      domain: ["availableBike","disabledBike","availableDock","disabledDock"],
+      range: ["#008000","#FF0000","#c7c7c7","#FF8000"]
+    };
     data = data.filter(d=>{
       return (d.name.indexOf(this.state.filterText) !== -1)
         && (this.state.hasBikes ? d.num_bikes_available > 0 : true)
@@ -69,10 +74,17 @@ class App extends Component {
     return (
       <div className="App" >
         <div className="App-header" style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-          <StationMaster 
+          <StationMaster
+            color={colors}
+            unit={this.state.unit}
             style={{ display: "flex", flexGrow: "1"}}
             data={data} />
           <div style={{ display: "flex", flexDirection: "column"}}>
+            <Switch
+              style={{ display: "flex", flexGrow: "1"}}
+              unit={this.state.unit}
+              update={(d) => this.setState({unit: d})}
+            />
             <Finder style={{ display: "flex", flexGrow: "1"}}
               onUserInput={this.handleUserInput}
               filterText={this.state.filterText}
@@ -80,16 +92,12 @@ class App extends Component {
               hasDocks={this.state.hasDocks}
               maxDistance={this.state.maxDistance}
             />
-            <Switch
-              style={{ display: "flex", flexGrow: "1"}}
-              unit={this.state.unit}
-              update={(d) => this.setState({unit: d})}
-            />
+            <Legend color={colors} />
           </div>
         </div>
         <Stations
           data={data} 
-          unit={this.state.unit}
+          color={colors}
           filterText={this.state.filterText}
           hasBikes={this.state.hasBikes}
           hasDocks={this.state.hasDocks}

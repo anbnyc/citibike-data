@@ -15,8 +15,8 @@ class Stations extends Component {
             <Station 
               data={d ? d : {}}
               height={100}
+              color={this.props.color}
               key={d.station_id}
-              unit={this.props.unit}
             />
           )}
         </div>
