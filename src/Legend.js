@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import './App.css';
 
 function Legend({color}) {
-  var factor = 40;
   return <div>
-    <svg id="legend" height={4*factor}>
+    <svg id="legend" height={100}>
     {color.range.map((d,i) =>
-      <g className="legend" transform={"translate(100,"+i*factor+")"}>
-        <rect fill={d} height={.8*factor} width={.8*factor} />
-        <text x={factor} y={.5*factor} >{_.startCase(color.domain[i])}</text>
+      <g className="legend" transform={"translate(0,"+i*20+")"}>
+        <rect fill={d} height={16} width={16} />
+        <text x={20} y={12} >{color.domain[i]}</text>
       </g>
     )}
     </svg>

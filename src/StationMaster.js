@@ -18,6 +18,7 @@ class StationMaster extends Component {
     datum["num_"+this.props.unit+"_available"] = _.reduce(data,(t,v)=>t+v["num_"+this.props.unit+"_available"],0);
     datum["num_"+this.props.unit+"_disabled"] = _.reduce(data,(t,v)=>t+v["num_"+this.props.unit+"_disabled"],0);
     return <div>
+            <h2>All Stations ({data.length})</h2>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <Station 
                 color={this.props.color}

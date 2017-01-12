@@ -70,24 +70,21 @@ class App extends Component {
         && (this.state.hasBikes ? d.num_bikes_available > 0 : true)
         && (this.state.hasDocks ? d.num_docks_available > 0 : true)
         && (this.state.myLoc ? distanceCalc({ lat: d.lat, lon: d.lon },this.state.myLoc,maxDistance) : true);
-      });
+    });
     return (
       <div className="App" >
         <div className="App-header" style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+          <StationMaster
+            color={colors}
+            unit={this.state.unit}
+            style={{ display: "flex", flexGrow: "1"}}
+            data={data} />
           <div style={{ display: "flex", flexDirection: "column"}}>
-            <h2>All Stations ({data.length})</h2>
             <Switch
               style={{ display: "flex", flexGrow: "1"}}
               unit={this.state.unit}
               update={(d) => this.setState({unit: d})}
             />
-            <StationMaster
-              color={colors}
-              unit={this.state.unit}
-              style={{ display: "flex", flexGrow: "1"}}
-              data={data} />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-around"}}>
             <Finder style={{ display: "flex", flexGrow: "1"}}
               onUserInput={this.handleUserInput}
               filterText={this.state.filterText}
