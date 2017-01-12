@@ -19,7 +19,8 @@ class Finder extends Component {
   render(){
     return <div>
       <h2>Filter Stations</h2>
-      <div>Station Name:
+      <div>
+        <span>Station Name: </span>
         <input
           type="text"
           placeholder="Type a name..."
@@ -28,7 +29,8 @@ class Finder extends Component {
           onChange={this.handleChange}
           />
       </div>
-      <div>Has Bikes Available:
+      <div>
+        <span>Has Bikes Available: </span>
         <input 
           type="checkbox"
           checked={this.props.hasBikes}
@@ -36,7 +38,8 @@ class Finder extends Component {
           onChange={this.handleChange}
           />
       </div>
-      <div>Has Docks Available:
+      <div>
+        <span>Has Docks Available: </span>
         <input 
           type="checkbox"
           checked={this.props.hasDocks}
@@ -44,7 +47,8 @@ class Finder extends Component {
           onChange={this.handleChange}
           />
       </div>
-      <div>Location: Less than or equal to
+      <div>
+        <span>Location: Less than or equal to </span>
         <input
           type="number"
           value={this.props.maxDistance}

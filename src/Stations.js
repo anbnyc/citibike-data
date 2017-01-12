@@ -9,7 +9,7 @@ class Stations extends Component {
   }
 
   render() {
-    const data = this.props.data;
+    const data = this.props.data.sort((a,b)=>{a.name-b.name});
     return <div className="App-body" style={{display: "flex", flexWrap: "wrap"}}>
           {data.map(d => 
             <Station 
